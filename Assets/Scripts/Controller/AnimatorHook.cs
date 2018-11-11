@@ -61,7 +61,6 @@ namespace SA
             else
             {
                 roll_t += states.delta / 0.6f;
-                Debug.Log(roll_t);
                 if(roll_t > 1)
                 {
                     roll_t = 1;

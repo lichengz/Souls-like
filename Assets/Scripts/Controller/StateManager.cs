@@ -190,36 +190,36 @@ namespace SA
             }
             float v = vertical;
             float h = horizontal;
-            // if (!lockOn)
-            // {
-            //     v = (moveAmount > 0.3f) ? 1 : 0;
-            //     h = 0;
-            // }
-            // else
-            // {
-            //     if (Mathf.Abs(v) < 0.3f)
-            //     {
-            //         v = 0;
-            //     }
-            //     if (Mathf.Abs(h) < 0.3f)
-            //     {
-            //         h = 0;
-            //     }
-            // }
-
-            if (v != 0)
+            if (!lockOn)
             {
-                if (moveDir == Vector3.zero)
-                    moveDir = transform.forward;
-                Quaternion targetRot = Quaternion.LookRotation(moveDir);
-                transform.rotation = targetRot;
-                a_hook.InitRolling();
-                a_hook.rm_multiplier = rollSpeed;
+                v = (moveAmount > 0.3f) ? 1 : 0;
+                h = 0;
             }
             else
             {
-
+                if (Mathf.Abs(v) < 0.3f)
+                {
+                    v = 0;
+                }
+                if (Mathf.Abs(h) < 0.3f)
+                {
+                    h = 0;
+                }
             }
+
+            // if (v != 0)
+            // {
+            //     if (moveDir == Vector3.zero)
+            //         moveDir = transform.forward;
+            //     Quaternion targetRot = Quaternion.LookRotation(moveDir);
+            //     transform.rotation = targetRot;
+            //     a_hook.InitRolling();
+            //     a_hook.rm_multiplier = rollSpeed;
+            // }
+            // else
+            // {
+            //     a_hook.rm_multiplier = 1.3f;
+            // }
 
 
             anim.SetFloat("vertical", v);
@@ -228,6 +228,13 @@ namespace SA
             inAction = true;
             anim.CrossFade("Rolls", 0.2f);
 
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            // Draws a blue line from this transform to the target
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, moveDir);
         }
 
         void HandleMovementAnimations()
